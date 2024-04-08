@@ -64,3 +64,6 @@ end
 
 gem 'dotenv', groups: [:development, :test]
 
+group :test do
+  gem 'shoulda-matchers', '~> 6.0'
+end
