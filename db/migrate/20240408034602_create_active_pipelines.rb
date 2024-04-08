@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateActivePipelines < ActiveRecord::Migration[7.1]
   def change
     create_table :active_pipelines, id: :uuid do |t|

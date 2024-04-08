@@ -1,0 +1,14 @@
+# .rubocop.yml
+
+# AllCops configuration
+AllCops:
+  NewCops: enable
+  Exclude:
+    - "vendor/**/*"
+    - "node_modules/**/*"
+    - "bin/**/*"
+    - "db/**/*"
+    - "config/**/*"
+
+Style/Documentation:
+  Enabled: false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateMerchantUsers < ActiveRecord::Migration[7.1]
   def change
     create_table :merchant_users, id: :uuid do |t|
