@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Merchants
-  class IndexService < BaseService
+  class ListService < BaseService
     def initialize(params)
       super
       @user_id = params.fetch(:user_id, nil)
