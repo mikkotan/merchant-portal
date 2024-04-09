@@ -8,13 +8,13 @@ class AuthenticationService < BaseService
   ACCESS_TOKEN_HEADER_PARAM = 'access-token'
 
   def initialize(headers)
-    super
+    super()
     @headers = headers
   end
 
   def call
-    return Failure unless user_id.present?
-    return Failure unless user.present?
+    return Failure(:access_token_missing) unless user_id.present?
+    return Failure(:user_not_found) unless user.present?
 
     Success(user)
   end

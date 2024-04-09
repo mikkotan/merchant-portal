@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require 'dry-monads'
+
 module Merchants
   class ListService < BaseService
+    include Dry::Monads[:result]
+
     def initialize(params)
-      super
       @user_id = params.fetch(:user_id, nil)
     end
 
