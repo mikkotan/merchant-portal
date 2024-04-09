@@ -4,19 +4,8 @@ module Api
   module V1
     class MerchantsController < SecuredController
       def index
-        merchants = Merchants::ListService.call(query_params)
-
-        render json: { data: present_list(merchants) }
-      end
-
-      private
-
-      def query_params
-        params.permit(:user_id)
-      end
-
-      def present_list(merchants)
-        Merchants::ListPresenter.new(merchants).serialize
+        result = Merchants::Endpoints::List.call(request)
+        handle_result(result)
       end
     end
   end

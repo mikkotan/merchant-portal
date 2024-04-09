@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Merchants::ListService do
+RSpec.describe Merchants::Operations::List do
   describe '.call' do
     subject { described_class.call(params) }
 

@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-require 'dry-monads'
-
 class AuthenticationService < BaseService
-  include Dry::Monads[:result]
-
   ACCESS_TOKEN_HEADER_PARAM = 'access-token'
 
   def initialize(headers)
-    super()
     @headers = headers
   end
 
