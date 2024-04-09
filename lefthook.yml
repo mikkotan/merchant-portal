@@ -1,0 +1,9 @@
+# lefthook.yml
+
+pre-push:
+  follow: true
+  commands:
+    rubocop:
+      run: bundle exec rubocop
+    rspec:
+      run: bundle exec rspec
