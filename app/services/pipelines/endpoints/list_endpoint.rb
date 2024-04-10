@@ -2,17 +2,17 @@
 
 module Pipelines
   module Endpoints
-    class List < BaseEndpointService
+    class ListEndpoint < BaseEndpointService
       private
 
       def process
         pipelines = yield list_pipelines.call(query_params)
 
-        Success(pipelines)
+        Success({ data: present(pipelines) })
       end
 
       def list_pipelines
-        @list_pipelines ||= Pipelines::Operations::List
+        @list_pipelines ||= Pipelines::Operations::ListOperation
       end
 
       def validate_params
@@ -37,6 +37,10 @@ module Pipelines
 
       def merchant_id
         @merchant_id ||= query_params.fetch(:merchant_id)
+      end
+
+      def present(pipelines)
+        Pipelines::Presenters::ListPresenter.new(pipelines, merchant_id:).serialize
       end
     end
   end

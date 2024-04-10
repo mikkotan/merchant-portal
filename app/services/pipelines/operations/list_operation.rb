@@ -2,7 +2,7 @@
 
 module Pipelines
   module Operations
-    class List < BaseService
+    class ListOperation < BaseService
       def initialize(params)
         @params = params
       end

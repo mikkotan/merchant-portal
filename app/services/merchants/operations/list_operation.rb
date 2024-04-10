@@ -2,7 +2,7 @@
 
 module Merchants
   module Operations
-    class List < BaseService
+    class ListOperation < BaseService
       def initialize(params)
         @user_id = params.fetch(:user_id)
       end

@@ -23,6 +23,28 @@ describe 'GET /api/v1/pipelines', type: :request do
       let(:merchant_id) { merchant_user.merchant_id }
 
       response '200', 'Pipelines found' do
+        schema type: :object, properties: {
+          data: {
+            type: :array,
+            items: {
+              type: :object,
+              properties: {
+                id: { type: :string, format: :uuid },
+                name: { type: :string },
+                about: { type: :string },
+                founded_in: { type: :string },
+                active: { type: :boolean },
+                stage: { type: :string },
+                categories: {
+                  type: :array,
+                  items: { type: :string }
+                },
+                company_website: { type: :string }
+              }, required: %w[id name about founded_in active stage categories company_website]
+            }
+          }
+        }
+
         run_test!
       end
 

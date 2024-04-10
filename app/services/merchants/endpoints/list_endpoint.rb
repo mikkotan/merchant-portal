@@ -2,7 +2,7 @@
 
 module Merchants
   module Endpoints
-    class List < BaseEndpointService
+    class ListEndpoint < BaseEndpointService
       private
 
       def process
@@ -24,15 +24,12 @@ module Merchants
         res.error? ? Failure(:invalid_params) : res
       end
 
-      def authorize_request
-        return Success(user_id) if current_user.internal?
-        return Failure(:forbidden) unless user_id == current_user.id
-
-        Success(user_id)
+      def guard
+        @guard ||= Merchants::Guards::ListGuard.new(current_user, user_id:)
       end
 
       def list_merchants
-        @list_merchants ||= Merchants::Operations::List
+        @list_merchants ||= Merchants::Operations::ListOperation
       end
 
       def present(merchants)

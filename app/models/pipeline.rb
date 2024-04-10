@@ -22,6 +22,10 @@ class Pipeline < ApplicationRecord
       .where(merchant_users: { user_id: })
   }
 
+  def active_for?(merchant_id)
+    active_pipelines.exists?(merchant_id:)
+  end
+
   private
 
   def ensure_categories_are_valid

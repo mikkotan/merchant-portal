@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe Merchants::Operations::List do
+require 'rails_helper'
+
+RSpec.describe Merchants::Operations::ListOperation do
   describe '.call' do
     subject { described_class.call(params) }
 

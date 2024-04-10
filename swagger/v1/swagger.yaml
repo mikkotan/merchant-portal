@@ -88,6 +88,44 @@ paths:
       responses:
         '200':
           description: Active pipelines found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          format: uuid
+                        name:
+                          type: string
+                        about:
+                          type: string
+                        founded_in:
+                          type: string
+                        active:
+                          type: boolean
+                        stage:
+                          type: string
+                        categories:
+                          type: array
+                          items:
+                            type: string
+                        company_website:
+                          type: string
+                      required:
+                      - id
+                      - name
+                      - about
+                      - founded_in
+                      - active
+                      - stage
+                      - categories
+                      - company_website
 servers:
 - url: http://localhost:3000
   variables:

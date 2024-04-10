@@ -8,7 +8,7 @@ class BaseEndpointService < BaseService
 
   def call
     yield authenticate_request
-    yield authorize_request if authorize_request.present?
+    yield guard.call if guard.present?
 
     process
   end
@@ -45,7 +45,7 @@ class BaseEndpointService < BaseService
     Success(current_user)
   end
 
-  def authorize_request
+  def guard
     nil
   end
 end
