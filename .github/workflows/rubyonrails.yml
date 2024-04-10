@@ -43,7 +43,7 @@ jobs:
       - name: Run tests
         run: bundle exec rspec
       - name: Run rswag
-        run: rake rswag
+        run: bundle exec rake rswag
 
   lint:
     runs-on: ubuntu-latest
