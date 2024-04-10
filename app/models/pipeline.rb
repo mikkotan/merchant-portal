@@ -3,7 +3,7 @@
 class Pipeline < ApplicationRecord
   self.table_name = :financial_institutions
 
-  CATEGORIES = %w[bank credit_cards wealth_management investments others].freeze
+  CATEGORIES = %w[bank credit_cards wealth_management investments other].freeze
 
   has_many :active_pipelines, foreign_key: :financial_institution_id
 

@@ -126,6 +126,100 @@ paths:
                       - stage
                       - categories
                       - company_website
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  "/api/v1/pipelines/{id}":
+    get:
+      summary: Retrieves a pipeline by id
+      tags:
+      - Pipelines
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: merchant_id
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Pipeline found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      name:
+                        type: string
+                      about:
+                        type: string
+                      founded_in:
+                        type: string
+                      active:
+                        type: boolean
+                      stage:
+                        type: string
+                      categories:
+                        type: array
+                        items:
+                          type: string
+                      company_website:
+                        type: string
+                    required:
+                    - id
+                    - name
+                    - about
+                    - founded_in
+                    - stage
+                    - categories
+                    - company_website
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: Pipeline not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
 servers:
 - url: http://localhost:3000
   variables:

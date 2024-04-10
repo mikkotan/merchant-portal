@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :merchants, only: :index
-      resources :pipelines, only: :index
+      resources :pipelines, only: %i[index show]
     end
   end
 end

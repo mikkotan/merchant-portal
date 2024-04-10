@@ -2,12 +2,7 @@
 
 module Pipelines
   module Guards
-    class ListGuard < BaseService
-      def initialize(target_user, options = {})
-        @target_user = target_user
-        @options = options
-      end
-
+    class ListGuard < BaseGuard
       def call
         return Success(user_id) if target_user.internal?
         return Failure(:forbidden) unless user_id.presence == target_user.id
@@ -17,8 +12,6 @@ module Pipelines
       end
 
       private
-
-      attr_reader :target_user, :options
 
       def user_id
         @user_id ||= options.fetch(:user_id, nil)

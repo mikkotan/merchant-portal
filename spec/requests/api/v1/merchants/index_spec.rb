@@ -33,7 +33,10 @@ describe 'GET /api/v1/merchants', type: :request do
                }
 
         let('access-token') { staff_user.id }
-        run_test!
+
+        run_test! do |response|
+          expect(response.parsed_body['data'].size).to eq(1)
+        end
       end
 
       response '401', 'Unauthorized' do

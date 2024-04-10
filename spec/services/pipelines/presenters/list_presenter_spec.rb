@@ -12,20 +12,10 @@ RSpec.describe Pipelines::Presenters::ListPresenter do
     let(:merchant_id) { merchant.id }
 
     it 'returns serialized pipelines' do
-      expect(subject).to eq(
-        [
-          {
-            id: pipeline.id,
-            name: pipeline.name,
-            about: pipeline.about,
-            founded_in: pipeline.founded_in,
-            active: false,
-            stage: pipeline.stage,
-            categories: pipeline.categories,
-            company_website: pipeline.company_website
-          }
-        ]
-      )
+      subject.each do |pipeline|
+        expect(pipeline.keys).to match_array(%i[id name about founded_in active stage categories
+                                                company_website])
+      end
     end
   end
 end

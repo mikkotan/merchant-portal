@@ -10,16 +10,7 @@ module Pipelines
 
       def serialize
         @pipelines.map do |pipeline|
-          {
-            id: pipeline.id,
-            name: pipeline.name,
-            about: pipeline.about,
-            founded_in: pipeline.founded_in,
-            active: pipeline.active_for?(merchant_id),
-            stage: pipeline.stage,
-            categories: pipeline.categories,
-            company_website: pipeline.company_website
-          }
+          Pipelines::Presenters::ShowPresenter.new(pipeline, merchant_id:).serialize
         end
       end
 

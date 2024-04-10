@@ -45,7 +45,9 @@ describe 'GET /api/v1/pipelines', type: :request do
           }
         }
 
-        run_test!
+        run_test! do |response|
+          expect(response.parsed_body['data'].size).to eq(1)
+        end
       end
 
       context 'when active filter is present' do
@@ -53,6 +55,34 @@ describe 'GET /api/v1/pipelines', type: :request do
 
         response '200', 'Active pipelines found' do
           let(:active) { true }
+
+          run_test! do |response|
+            expect(response.parsed_body['data'].size).to eq(1)
+          end
+        end
+      end
+
+      response '401', 'Unauthorized' do
+        schema type: :object, properties: { error: { type: :string } }
+        let('access-token') { 'invalid' }
+
+        run_test!
+      end
+
+      response '403', 'Forbidden' do
+        schema type: :object, properties: { error: { type: :string } }
+        let(:user_id) { 'some-uuid' }
+        let('access-token') { merchant_user.user_id }
+
+        run_test!
+      end
+
+      context 'when merchant_id does not belong to user' do
+        let(:merchant_id) { 'some-uuid' }
+
+        response '403', 'Forbidden' do
+          schema type: :object, properties: { error: { type: :string } }
+          let('access-token') { merchant_user.user_id }
 
           run_test!
         end

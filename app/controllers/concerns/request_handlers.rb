@@ -6,6 +6,7 @@ module RequestHandlers
   UNAUTHORIZED_MSG = 'Unauthorized request.'
   FORBIDDEN_MSG = 'Forbidden request.'
   INVALID_PARAMS_MSG = 'Invalid parameters.'
+  NOT_FOUND_MSG = 'Resource not found.'
 
   private
 
@@ -19,6 +20,8 @@ module RequestHandlers
       handle_unauthorized_request
     in Failure(:forbidden)
       handle_forbidden_request
+    in Failure(:not_found)
+      handle_not_found
     else
       handle_bad_request
     end
@@ -42,6 +45,10 @@ module RequestHandlers
 
   def handle_forbidden_request
     render_error(FORBIDDEN_MSG, :forbidden)
+  end
+
+  def handle_not_found
+    render_error(NOT_FOUND_MSG, :not_found)
   end
 
   def render_error(payload, status = :bad_request)

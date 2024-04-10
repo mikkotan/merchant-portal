@@ -7,6 +7,11 @@ module Api
         result = Pipelines::Endpoints::ListEndpoint.call(request)
         handle_result(result)
       end
+
+      def show
+        result = Pipelines::Endpoints::ShowEndpoint.call(request)
+        handle_result(result)
+      end
     end
   end
 end

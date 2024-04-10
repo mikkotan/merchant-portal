@@ -38,7 +38,7 @@ pipeline_a = Pipeline.find_or_create_by!(
   about: 'Bank A is the 2nd largest OTA platform in China in terms of GMV as of 2019. As the only loyalty program targeting the travel segment in the Alibaba e-commerce economy',
   founded_in: '1 Oct 2016',
   categories: [
-      'Other'
+      'other'
   ],
   stage: Pipeline.stages[:live],
   company_website: 'https://www.bankA.com/',
@@ -50,7 +50,7 @@ pipeline_b = Pipeline.find_or_create_by!(
   about: 'Bank B is the 3rd largest OTA platform in China in terms of GMV as of 2019. As the only loyalty program targeting the travel segment in the Alibaba e-commerce economy',
   founded_in: '1 Sep 2016',
   categories: [
-      'Other'
+      'other'
   ],
   stage: Pipeline.stages[:live],
   company_website: 'https://www.bankB.com/',
@@ -63,7 +63,7 @@ other_pipelines = [
     about: 'CC company B is a corporate travel and expense management platform looking to launch a premium rewards program.',
     founded_in: '1 Oct 2019',
     categories: [
-        'Other'
+        'other'
     ],
     stage: Pipeline.stages[:contracting],
     company_website: 'https://www.ccCompanyB.com/',
@@ -73,7 +73,7 @@ other_pipelines = [
     about: 'Bank C is the 4th largest OTA platform in China in terms of GMV as of 2019. As the only loyalty program targeting the travel segment in the Alibaba e-commerce economy',
     founded_in: '1 Dec 2016',
     categories: [
-        'Other'
+        'other'
     ],
     stage: Pipeline.stages[:live],
     company_website: 'https://www.bankC.com/',
@@ -83,7 +83,7 @@ other_pipelines = [
     about: 'Imperial Bank is a corporate travel and expense management platform looking to launch a premium rewards program.',
     founded_in: '2 Oct 2019',
     categories: [
-        'Other'
+        'other'
     ],
     stage: Pipeline.stages[:implementation],
     company_website: 'https://www.imperialbank.com/',

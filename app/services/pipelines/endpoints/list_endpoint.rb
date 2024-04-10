@@ -24,11 +24,8 @@ module Pipelines
         res.error? ? Failure(:invalid_params) : res
       end
 
-      def authorize_request
-        return Success(user_id) if current_user.internal?
-        return Failure(:forbidden) unless user_id == current_user.id
-
-        Success(user_id)
+      def guard
+        @guard ||= Pipelines::Guards::ListGuard.new(current_user, user_id:, merchant_id:)
       end
 
       def user_id

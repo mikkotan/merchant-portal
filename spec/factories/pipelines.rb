@@ -7,6 +7,6 @@ FactoryBot.define do
     founded_in { Faker::Date.between(from: 10.years.ago, to: Date.today) }
     company_website { Faker::Internet.url }
     stage { Pipeline.stages[:live] }
-    categories { ['others'] }
+    categories { ['other'] }
   end
 end
