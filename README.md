@@ -1,24 +1,70 @@
-# README
+# Merchant Portal
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Run via Docker (TODO)
 
-Things you may want to cover:
+## Run without Docker
 
-* Ruby version
+### Pre-requisites
 
-* System dependencies
+- ruby-3.2.2
+- Rails 7.1.3
+- PostgreSQL (latest)
 
-* Configuration
+### Get Started
 
-* Database creation
+1. Clone the project
 
-* Database initialization
+```
+$ git clone git@github.com:mikkotan/merchant-portal.git
+```
 
-* How to run the test suite
+2. Change directory
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+$ cd merchant-portal
+```
 
-* Deployment instructions
+3. Install dependencies
 
-* ...
+```
+$ bundle install
+```
+
+4. Create .env file from .sample.env
+
+```
+$ cp .sample.env .env
+```
+
+5. Open .env file and setup env variables
+
+```
+PSQL_USERNAME=psql_user
+PSQL_PASSWORD=psql_password
+RSWAG_USERNAME=sample
+RSWAG_PASSWORD=sample
+```
+
+6. Create database
+
+```
+$ rails db:setup
+```
+
+7. Run specs
+
+```
+$ bundle exec rspec
+```
+
+8. Run rails server
+
+```
+$ rails s
+```
+
+9. Navigate to /api-docs use rswag credentials in step 5
+
+### API Endpoints
+
+For api documentation, navigate to http://localhost:3000/api-docs
