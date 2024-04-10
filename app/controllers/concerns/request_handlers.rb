@@ -5,6 +5,7 @@ module RequestHandlers
 
   UNAUTHORIZED_MSG = 'Unauthorized request.'
   FORBIDDEN_MSG = 'Forbidden request.'
+  INVALID_PARAMS_MSG = 'Invalid parameters.'
 
   private
 
@@ -13,7 +14,7 @@ module RequestHandlers
     in Success(payload)
       handle_success(payload, success_status)
     in Failure(:invalid_params)
-      handle_bad_request('Invalid parameters.')
+      handle_invalid_params
     in Failure(:unauthorized)
       handle_unauthorized_request
     in Failure(:forbidden)
@@ -25,6 +26,10 @@ module RequestHandlers
 
   def handle_success(payload, status = :ok)
     render json: payload, status:
+  end
+
+  def handle_invalid_params
+    handle_bad_request(INVALID_PARAMS_MSG)
   end
 
   def handle_bad_request(errors = nil)

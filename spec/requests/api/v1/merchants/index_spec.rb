@@ -12,6 +12,7 @@ describe 'GET /api/v1/merchants', type: :request do
       parameter name: 'access-token', in: :header, type: :string, required: true
       parameter name: :user_id, in: :query, type: :string, required: true
 
+      let(:staff_user) { create(:internal_user) }
       let!(:merchant_user) { create(:merchant_user) }
       let(:user_id) { merchant_user.user_id }
 
@@ -31,7 +32,7 @@ describe 'GET /api/v1/merchants', type: :request do
                  }
                }
 
-        let('access-token') { merchant_user.user_id }
+        let('access-token') { staff_user.id }
         run_test!
       end
 
