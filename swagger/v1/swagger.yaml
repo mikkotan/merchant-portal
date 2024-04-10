@@ -59,6 +59,35 @@ paths:
                 properties:
                   error:
                     type: string
+  "/api/v1/pipelines":
+    get:
+      summary: Retrieves all pipelines by user_id and merchant_id
+      tags:
+      - Pipelines
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: user_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: merchant_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: active
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Active pipelines found
 servers:
 - url: http://localhost:3000
   variables:

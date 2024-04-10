@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-module Merchants
+module Pipelines
   module Endpoints
     class List < BaseEndpointService
       private
 
       def process
-        merchants = yield list_merchants.call(query_params)
+        pipelines = yield list_pipelines.call(query_params)
 
-        Success({ data: present(merchants) })
+        Success(pipelines)
       end
 
-      def user_id
-        @user_id ||= query_params.fetch(:user_id)
+      def list_pipelines
+        @list_pipelines ||= Pipelines::Operations::List
       end
 
       def validate_params
         res = Try[ActionController::ParameterMissing] do
-          params.require(:user_id)
-          params.permit(:user_id)
+          params.require(%i[user_id merchant_id])
+          params.permit(:user_id, :merchant_id, :active)
         end
 
         res.error? ? Failure(:invalid_params) : res
@@ -31,12 +31,12 @@ module Merchants
         Success(user_id)
       end
 
-      def list_merchants
-        @list_merchants ||= Merchants::Operations::List
+      def user_id
+        @user_id ||= query_params.fetch(:user_id)
       end
 
-      def present(merchants)
-        Merchants::Presenters::ListPresenter.new(merchants).serialize
+      def merchant_id
+        @merchant_id ||= query_params.fetch(:merchant_id)
       end
     end
   end
