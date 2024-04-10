@@ -26,6 +26,8 @@ jobs:
       RAILS_ENV: test
       PSQL_USERNAME: rails
       PSQL_PASSWORD: password
+      RSWAG_USERNAME: sample
+      RSWAG_PASSWORD: sample
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
