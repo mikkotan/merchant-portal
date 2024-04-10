@@ -7,3 +7,5 @@ pre-push:
       run: bundle exec rubocop
     rspec:
       run: bundle exec rspec
+    rswag:
+      run: bundle exec rake rswag

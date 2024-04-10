@@ -8,14 +8,14 @@ module Merchants
       end
 
       def call
-        query_params = yield validate_params.call
+        query_params = yield validate_params
 
         yield authenticate_request
         yield merchant_user_authorized?(query_params[:user_id])
 
-        merchants = yield list_merchants.call(query_params[:user_id])
+        merchants = yield list_merchants.call(query_params)
 
-        Success(present(merchants))
+        Success({ data: present(merchants) })
       end
 
       private
@@ -43,7 +43,7 @@ module Merchants
       end
 
       def list_merchants
-        @list_merchants ||= Merchants::Operations::ListService
+        @list_merchants ||= Merchants::Operations::List
       end
 
       def present(merchants)

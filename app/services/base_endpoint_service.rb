@@ -12,7 +12,7 @@ class BaseEndpointService < BaseService
   attr_accessor :current_user
 
   def params
-    @params ||= ActionController::Parameters.new(request.params)
+    @params ||= ActionController::Parameters.new(request.params).deep_transform_keys(&:underscore)
   end
 
   def headers
@@ -21,8 +21,9 @@ class BaseEndpointService < BaseService
 
   def authenticate_request
     result = AuthenticationService.call(request.headers)
-    @current_user = result.success! if result.success?
+    return Failure(:unauthorized) unless result.success?
 
-    Failure(:unauthorized)
+    @current_user = result.value! if result.success?
+    Success(current_user)
   end
 end

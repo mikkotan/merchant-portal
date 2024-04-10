@@ -13,7 +13,7 @@ module RequestHandlers
     in Success(payload)
       handle_success(payload, success_status)
     in Failure(:invalid_params)
-      handle_bad_request(errors)
+      handle_bad_request('Invalid parameters.')
     in Failure(:unauthorized)
       handle_unauthorized_request
     in Failure(:forbidden)
