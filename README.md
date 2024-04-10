@@ -65,6 +65,9 @@ $ rails s
 
 9. Navigate to /api-docs use rswag credentials in step 5
 
+<img width="364" alt="Screenshot 2024-04-10 at 11 45 48 PM" src="https://github.com/mikkotan/merchant-portal/assets/16665393/439aa63b-33ab-4548-82b3-cd7c50b87cc1">
+
+
 ### API Endpoints
 
 For api documentation, navigate to http://localhost:3000/api-docs
