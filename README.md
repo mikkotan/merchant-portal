@@ -68,3 +68,7 @@ $ rails s
 ### API Endpoints
 
 For api documentation, navigate to http://localhost:3000/api-docs
+
+<img width="1197" alt="Screenshot 2024-04-10 at 11 23 34 PM" src="https://github.com/mikkotan/merchant-portal/assets/16665393/dbba1a4e-9993-446c-b009-89bf880ad17c">
+
+
