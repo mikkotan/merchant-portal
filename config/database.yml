@@ -83,5 +83,4 @@ test:
 production:
   <<: *default
   database: merchant_portal_production
-  username: merchant_portal
-  password: <%= ENV["MERCHANT_PORTAL_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
