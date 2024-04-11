@@ -20,7 +20,7 @@ jobs:
       RAILS_ENV: test
       POSTGRES_USER: rails
       POSTGRES_PASSWORD: password
-      DATABASE_HOST: postgres
+      DATABASE_HOST: localhost
       RSWAG_USERNAME: sample
       RSWAG_PASSWORD: sample
     steps:
