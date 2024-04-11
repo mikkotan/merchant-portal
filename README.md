@@ -1,5 +1,11 @@
 # Merchant Portal
 
+## Quick links
+
+- [Run via Docker](#run-via-docker)
+- [Run without Docker](#run-without-docker)
+- [API Documentation](#api-endpoints)
+
 ## Run via Docker
 
 ### Pre-requisites
