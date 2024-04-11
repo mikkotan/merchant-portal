@@ -157,6 +157,12 @@ For api documentation, navigate to http://localhost:3000/api-docs
 - Merchant User B ID: `58894254-b0a7-4550-a42a-f774ceb4512d` - (Belongs to MerchantB)
 - Merchant A ID: `10452350-147e-1234-a15b-503ba451f379`
 - Merchant B ID: `1bde0977-e3b2-2222-8c7c-fe3a7cbb98bb`
+- Pipelines IDs
+  - `004acfe5-4334-1234-9498-28add7f4674a` - active for MerchantA
+  - `cd8469d7-3daf-43dd-9ee5-1966ba53db89` - active for MerchantB
+  - `004acfe5-4334-5678-9498-28add7f4674a`
+  - `ede3a8f9-4fd5-4a44-8d36-4077b3a82211`
+  - `829ca84f-9000-43df-a572-7dd13b1a22f8`
 
 **Curl commands**
 
