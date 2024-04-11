@@ -6,6 +6,7 @@
 - [Run without Docker](#run-without-docker)
 - [API Documentation](#api-endpoints)
 - [Curl commands](#some-useful-things-for-testing)
+- [Design decisions](https://github.com/mikkotan/merchant-portal/wiki/Design-Decisions)
 
 ## Run via Docker
 
