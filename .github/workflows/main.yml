@@ -18,8 +18,8 @@ jobs:
           POSTGRES_PASSWORD: password
     env:
       RAILS_ENV: test
-      PSQL_USERNAME: rails
-      PSQL_PASSWORD: password
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: password
       RSWAG_USERNAME: sample
       RSWAG_PASSWORD: sample
     steps:
