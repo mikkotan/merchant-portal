@@ -27,19 +27,13 @@ $ git clone git@github.com:mikkotan/merchant-portal.git
 $ cd merchant-portal
 ```
 
-3. Build with docker
-
-```
-$ docker-compose build
-```
-
-4. Create .env file from .sample.env
+3. Create .env file from .sample.env
 
 ```
 $ cp .sample.env .env
 ```
 
-5. Open .env file and setup env variables
+4. Open .env file and setup env variables
 
 ```
 POSTGRES_USER=root
@@ -49,6 +43,12 @@ RSWAG_USERNAME=admin
 RSWAG_PASSWORD=admin
 SWAGGER_URL=http://localhost:3000
 SWAGGER_DEFAULT_HOST=localhost:3000
+```
+
+5. Build with docker
+
+```
+$ docker-compose build
 ```
 
 6. Setup database
