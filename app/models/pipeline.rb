@@ -16,11 +16,7 @@ class Pipeline < ApplicationRecord
   validates :name, :company_website, :stage, presence: true
   validate :ensure_categories_are_valid
 
-  scope :active, lambda { |merchant_id, user_id|
-    joins(active_pipelines: { merchant: :merchant_users })
-      .where(active_pipelines: { merchant_id: })
-      .where(merchant_users: { user_id: })
-  }
+  scope :active, ->(merchant_id) { joins(:active_pipelines).where(active_pipelines: { merchant_id: }) }
 
   def active_for?(merchant_id)
     active_pipelines.exists?(merchant_id:)

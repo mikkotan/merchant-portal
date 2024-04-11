@@ -9,7 +9,7 @@ module Pipelines
 
       def call
         scope = base_scope
-        scope = scope.active(merchant_id, user_id) if filter_by_active?
+        scope = scope.active(merchant_id) if filter_by_active?
 
         Success(scope)
       end
@@ -22,10 +22,6 @@ module Pipelines
         Pipeline.includes(:active_pipelines)
       end
 
-      def user_id
-        @user_id ||= params.fetch(:user_id, nil)
-      end
-
       def merchant_id
         @merchant_id ||= params.fetch(:merchant_id, nil)
       end
@@ -35,7 +31,7 @@ module Pipelines
       end
 
       def filter_by_active?
-        return false unless user_id.present? && merchant_id.present?
+        return false unless merchant_id.present?
 
         active.present? && active == 'true'
       end
