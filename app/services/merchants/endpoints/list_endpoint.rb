@@ -11,10 +11,6 @@ module Merchants
         Success({ data: present(merchants) })
       end
 
-      def user_id
-        @user_id ||= query_params.fetch(:user_id)
-      end
-
       def validate_params
         res = Try[ActionController::ParameterMissing] do
           params.require(:user_id)
@@ -26,6 +22,10 @@ module Merchants
 
       def guard
         @guard ||= Merchants::Guards::ListGuard.new(current_user, user_id:)
+      end
+
+      def user_id
+        @user_id ||= query_params.fetch(:user_id)
       end
 
       def list_merchants

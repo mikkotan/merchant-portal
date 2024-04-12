@@ -14,11 +14,12 @@ describe 'GET /api/v1/pipelines', type: :request do
       parameter name: :merchant_id, in: :query, type: :string, required: true
       parameter name: :active, in: :query, type: :boolean, required: false
 
-      let(:staff_user) { create(:internal_user) }
+      let(:current_user) { create(:internal_user) }
       let!(:merchant_user) { create(:merchant_user) }
       let!(:pipeline) { create(:pipeline) }
+      let!(:contracting_pipeline) { create(:pipeline, stage: Pipeline.stages[:contracting]) }
 
-      let('access-token') { staff_user.id }
+      let('access-token') { current_user.id }
       let(:user_id) { merchant_user.user_id }
       let(:merchant_id) { merchant_user.merchant_id }
 
@@ -46,7 +47,17 @@ describe 'GET /api/v1/pipelines', type: :request do
         }
 
         run_test! do |response|
-          expect(response.parsed_body['data'].size).to eq(1)
+          expect(response.parsed_body['data'].size).to eq(2)
+        end
+      end
+
+      context 'when current_user is merchant_user' do
+        let(:current_user) { merchant_user.external_user }
+
+        response '200', 'Pipelines found' do
+          run_test! do |response|
+            expect(response.parsed_body['data'].size).to eq(1)
+          end
         end
       end
 

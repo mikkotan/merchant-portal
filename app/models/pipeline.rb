@@ -13,10 +13,16 @@ class Pipeline < ApplicationRecord
     live: 20
   }, _prefix: true
 
+  STAGES_FOR = {
+    'InternalUser' => stages.values,
+    'ExternalUser' => stages.values_at('live')
+  }.freeze
+
   validates :name, :company_website, :stage, presence: true
   validate :ensure_categories_are_valid
 
   scope :active, ->(merchant_id) { joins(:active_pipelines).where(active_pipelines: { merchant_id: }) }
+  scope :by_stage, ->(stage) { where(stage:) }
 
   def active_for?(merchant_id)
     active_pipelines.exists?(merchant_id:)

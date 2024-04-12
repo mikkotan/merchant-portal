@@ -32,3 +32,5 @@ end
 group :development do
   gem 'web-console'
 end
+
+gem 'simplecov', require: false, group: :test

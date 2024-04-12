@@ -6,13 +6,9 @@ module Pipelines
       private
 
       def process
-        pipelines = yield list_pipelines.call(query_params)
+        pipelines = yield list_pipelines.call(list_params)
 
         Success({ data: present(pipelines) })
-      end
-
-      def list_pipelines
-        @list_pipelines ||= Pipelines::Operations::ListOperation
       end
 
       def validate_params
@@ -34,6 +30,20 @@ module Pipelines
 
       def merchant_id
         @merchant_id ||= query_params.fetch(:merchant_id)
+      end
+
+      def list_pipelines
+        @list_pipelines ||= Pipelines::Operations::ListOperation
+      end
+
+      def list_params
+        query_params.merge(stage_params)
+      end
+
+      def stage_params
+        {
+          stage: Pipeline::STAGES_FOR[current_user.type]
+        }
       end
 
       def present(pipelines)

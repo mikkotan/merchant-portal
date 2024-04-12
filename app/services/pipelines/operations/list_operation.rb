@@ -10,6 +10,7 @@ module Pipelines
       def call
         scope = base_scope
         scope = scope.active(merchant_id) if filter_by_active?
+        scope = scope.by_stage(stage) if stage.present?
 
         Success(scope)
       end
@@ -28,6 +29,10 @@ module Pipelines
 
       def active
         @active ||= params.fetch(:active, nil)
+      end
+
+      def stage
+        @stage ||= params.fetch(:stage, nil)
       end
 
       def filter_by_active?
