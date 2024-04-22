@@ -7,6 +7,8 @@ class BaseEndpointService < BaseService
   end
 
   def call
+    @query_params = yield validate_params if validate_params
+
     yield authenticate_request
     yield guard.call if guard.present?
 
@@ -15,18 +17,14 @@ class BaseEndpointService < BaseService
 
   private
 
-  attr_reader :request, :current_user
+  attr_reader :request, :current_user, :query_params
 
   def process
     raise NotImplementedError
   end
 
   def validate_params
-    raise NotImplementedError
-  end
-
-  def query_params
-    @query_params ||= yield validate_params
+    nil
   end
 
   def params
