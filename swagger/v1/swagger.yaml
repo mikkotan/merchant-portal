@@ -59,11 +59,11 @@ paths:
                 properties:
                   error:
                     type: string
-  "/api/v1/pipelines":
+  "/api/v1/partners":
     get:
-      summary: Retrieves all pipelines by user_id and merchant_id
+      summary: Retrieves all partners by user_id and merchant_id
       tags:
-      - Pipelines
+      - Partners
       parameters:
       - name: access-token
         in: header
@@ -87,7 +87,7 @@ paths:
           type: boolean
       responses:
         '200':
-          description: Active pipelines found
+          description: Active partners found
           content:
             application/json:
               schema:
@@ -144,11 +144,11 @@ paths:
                 properties:
                   error:
                     type: string
-  "/api/v1/pipelines/{id}":
+  "/api/v1/partners/{id}":
     get:
-      summary: Retrieves a pipeline by id
+      summary: Retrieves a partner by id
       tags:
-      - Pipelines
+      - Partners
       parameters:
       - name: access-token
         in: header
@@ -166,7 +166,7 @@ paths:
           type: string
       responses:
         '200':
-          description: Pipeline found
+          description: Partner found
           content:
             application/json:
               schema:
@@ -212,7 +212,7 @@ paths:
                   error:
                     type: string
         '404':
-          description: Pipeline not found
+          description: Partner not found
           content:
             application/json:
               schema:

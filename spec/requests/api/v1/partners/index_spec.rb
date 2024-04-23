@@ -5,7 +5,7 @@ require 'swagger_helper'
 describe 'GET /api/v1/partners', type: :request do
   path '/api/v1/partners' do
     get 'Retrieves all partners by user_id and merchant_id' do
-      tags 'partners'
+      tags 'Partners'
       produces 'application/json'
       consumes 'application/json'
 
