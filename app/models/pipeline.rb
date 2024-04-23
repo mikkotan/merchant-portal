@@ -1,38 +1,22 @@
 # frozen_string_literal: true
 
 class Pipeline < ApplicationRecord
-  self.table_name = :financial_institutions
+  belongs_to :partner, foreign_key: :financial_institution_id
+  belongs_to :merchant
 
-  CATEGORIES = %w[bank credit_cards wealth_management investments other].freeze
+  validates :partner, :merchant, presence: true
+  validates :partner, uniqueness: { scope: :merchant_id }
 
-  has_many :active_pipelines, foreign_key: :financial_institution_id
+  # TODO: Move to business logic domain validation
+  validate :ensure_partner_stage_is_valid
 
-  enum stage: {
-    contracting: 0,
-    implementation: 10,
-    live: 20
-  }, _prefix: true
-
-  STAGES_FOR = {
-    'InternalUser' => stages.values,
-    'ExternalUser' => stages.values_at('live')
-  }.freeze
-
-  validates :name, :company_website, :stage, presence: true
-  validate :ensure_categories_are_valid
-
-  scope :active, ->(merchant_id) { joins(:active_pipelines).where(active_pipelines: { merchant_id: }) }
-  scope :by_stage, ->(stage) { where(stage:) }
-
-  def active_for?(merchant_id)
-    active_pipelines.exists?(merchant_id:)
-  end
+  enum status: { pending: 0, active: 10, archived: 20 }, _prefix: true
 
   private
 
-  def ensure_categories_are_valid
-    return if (categories - CATEGORIES).empty?
+  def ensure_partner_stage_is_valid
+    return if partner.present? && partner.stage_live?
 
-    errors.add(:categories, 'must be valid')
+    errors.add(:partner, 'must be in the live stage')
   end
 end

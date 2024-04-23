@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-module Pipelines
+module Partners
   module Endpoints
     class ListEndpoint < BaseEndpointService
       private
 
       def process
-        pipelines = yield list_pipelines.call(list_params)
+        partners = yield list_partners.call(list_params)
 
-        Success({ data: present(pipelines) })
+        Success({ data: present(partners) })
       end
 
       def validate_params
@@ -21,7 +21,7 @@ module Pipelines
       end
 
       def guard
-        @guard ||= Pipelines::Guards::ListGuard.new(current_user, user_id:, merchant_id:)
+        @guard ||= Partners::Guards::ListGuard.new(current_user, user_id:, merchant_id:)
       end
 
       def user_id
@@ -32,8 +32,8 @@ module Pipelines
         @merchant_id ||= query_params.fetch(:merchant_id)
       end
 
-      def list_pipelines
-        @list_pipelines ||= Pipelines::Operations::ListOperation
+      def list_partners
+        @list_partners ||= Partners::Operations::ListOperation
       end
 
       def list_params
@@ -42,12 +42,12 @@ module Pipelines
 
       def stage_params
         {
-          stage: Pipeline::STAGES_FOR[current_user.type]
+          stage: Partner::STAGES_FOR[current_user.type]
         }
       end
 
-      def present(pipelines)
-        Pipelines::Presenters::ListPresenter.new(pipelines, merchant_id:).serialize
+      def present(partners)
+        Partners::Presenters::ListPresenter.new(partners, merchant_id:).serialize
       end
     end
   end

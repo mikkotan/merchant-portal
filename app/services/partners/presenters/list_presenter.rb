@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-module Pipelines
+module Partners
   module Presenters
     class ListPresenter
-      def initialize(pipelines, options = {})
-        @pipelines = pipelines
+      def initialize(partners, options = {})
+        @partners = partners
         @options = options
       end
 
       def serialize
-        @pipelines.map do |pipeline|
-          Pipelines::Presenters::ShowPresenter.new(pipeline, merchant_id:).serialize
+        partners.map do |partner|
+          Partners::Presenters::ShowPresenter.new(partner, merchant_id:).serialize
         end
       end
 
@@ -20,7 +20,7 @@ module Pipelines
         @merchant_id ||= options.fetch(:merchant_id, nil)
       end
 
-      attr_reader :pipelines, :options
+      attr_reader :partners, :options
     end
   end
 end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Pipelines::Endpoints::ListEndpoint do
+RSpec.describe Partners::Endpoints::ListEndpoint do
   describe '.call' do
     subject { described_class.call(request) }
 
@@ -15,7 +15,7 @@ RSpec.describe Pipelines::Endpoints::ListEndpoint do
 
     let(:current_user) { create(:internal_user) }
     let(:merchant_user) { create(:merchant_user) }
-    let(:pipeline) { create(:pipeline) }
+    let(:partner) { create(:partner) }
 
     it { expect(subject).to be_success }
 

@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe Pipelines::Presenters::ShowPresenter do
+RSpec.describe Partners::Presenters::ShowPresenter do
   describe '#serialize' do
-    subject { described_class.new(pipeline, options).serialize }
+    subject { described_class.new(partner, options).serialize }
 
-    let(:pipeline) { create(:pipeline) }
+    let(:partner) { create(:partner) }
     let(:options) { {} }
 
     it { expect(subject.keys).to match_array(%i[id name about founded_in stage categories company_website]) }

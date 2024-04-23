@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Pipelines
+module Partners
   module Operations
     class ListOperation < BaseService
       def initialize(params)
@@ -20,7 +20,7 @@ module Pipelines
       attr_reader :params
 
       def base_scope
-        Pipeline.includes(:active_pipelines)
+        Partner.includes(:pipelines)
       end
 
       def merchant_id

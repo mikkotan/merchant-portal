@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Pipelines::Guards::ListGuard do
+RSpec.describe Partners::Guards::ListGuard do
   describe '.call' do
     subject { described_class.call(target_user, options) }
 

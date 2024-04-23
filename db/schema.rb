@@ -10,20 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_09_055651) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_23_050034) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
-
-  create_table "active_pipelines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.uuid "merchant_id", null: false
-    t.uuid "financial_institution_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["financial_institution_id"], name: "index_active_pipelines_on_financial_institution_id"
-    t.index ["merchant_id", "financial_institution_id"], name: "idx_on_merchant_id_financial_institution_id_e54b77b67b", unique: true
-    t.index ["merchant_id"], name: "index_active_pipelines_on_merchant_id"
-  end
 
   create_table "financial_institutions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
@@ -52,6 +42,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_055651) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "pipelines", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "merchant_id", null: false
+    t.uuid "financial_institution_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
+    t.index ["financial_institution_id"], name: "index_pipelines_on_financial_institution_id"
+    t.index ["merchant_id", "financial_institution_id"], name: "index_pipelines_on_merchant_id_and_financial_institution_id", unique: true
+    t.index ["merchant_id"], name: "index_pipelines_on_merchant_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "type", null: false
@@ -60,8 +61,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_09_055651) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "active_pipelines", "financial_institutions"
-  add_foreign_key "active_pipelines", "merchants"
   add_foreign_key "merchant_users", "merchants"
   add_foreign_key "merchant_users", "users"
+  add_foreign_key "pipelines", "financial_institutions"
+  add_foreign_key "pipelines", "merchants"
 end

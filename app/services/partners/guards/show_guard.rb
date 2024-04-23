@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Pipelines
+module Partners
   module Guards
     class ShowGuard < BaseGuard
       def call

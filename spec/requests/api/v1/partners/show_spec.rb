@@ -2,10 +2,10 @@
 
 require 'swagger_helper'
 
-describe 'GET /api/v1/pipelines/{id}', type: :request do
-  path '/api/v1/pipelines/{id}' do
-    get 'Retrieves a pipeline by id' do
-      tags 'Pipelines'
+describe 'GET /api/v1/partners/{id}', type: :request do
+  path '/api/v1/partners/{id}' do
+    get 'Retrieves a partner by id' do
+      tags 'Partners'
       produces 'application/json'
       consumes 'application/json'
 
@@ -14,13 +14,13 @@ describe 'GET /api/v1/pipelines/{id}', type: :request do
       parameter name: :merchant_id, in: :query, type: :string
 
       let(:staff_user) { create(:internal_user) }
-      let!(:pipeline) { create(:pipeline) }
+      let!(:partner) { create(:partner) }
 
       let('access-token') { staff_user.id }
-      let(:id) { pipeline.id }
+      let(:id) { partner.id }
       let(:merchant_id) { nil }
 
-      response '200', 'Pipeline found' do
+      response '200', 'Partner found' do
         schema type: :object, properties: {
           data: {
             type: :object,
@@ -47,7 +47,7 @@ describe 'GET /api/v1/pipelines/{id}', type: :request do
         let(:external_user) { create(:external_user) }
         let('access-token') { external_user.id }
 
-        response '200', 'Pipeline found' do
+        response '200', 'Partner found' do
           run_test!
         end
 
@@ -58,7 +58,7 @@ describe 'GET /api/v1/pipelines/{id}', type: :request do
           context 'when merchant belongs to user' do
             let!(:merchant_user) { create(:merchant_user, external_user:, merchant:) }
 
-            response '200', 'Pipeline found' do
+            response '200', 'Partner found' do
               run_test!
             end
           end
@@ -73,7 +73,7 @@ describe 'GET /api/v1/pipelines/{id}', type: :request do
         end
       end
 
-      response '404', 'Pipeline not found' do
+      response '404', 'Partner not found' do
         schema type: :object, properties: { error: { type: :string } }
 
         let(:id) { 'some-uuid' }

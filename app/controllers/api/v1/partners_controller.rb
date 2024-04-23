@@ -2,14 +2,14 @@
 
 module Api
   module V1
-    class PipelinesController < ApiController
+    class PartnersController < ApiController
       def index
-        result = Pipelines::Endpoints::ListEndpoint.call(request)
+        result = Partners::Endpoints::ListEndpoint.call(request)
         handle_result(result)
       end
 
       def show
-        result = Pipelines::Endpoints::ShowEndpoint.call(request)
+        result = Partners::Endpoints::ShowEndpoint.call(request)
         handle_result(result)
       end
     end

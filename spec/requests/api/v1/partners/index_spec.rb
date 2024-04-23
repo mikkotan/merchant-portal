@@ -2,10 +2,10 @@
 
 require 'swagger_helper'
 
-describe 'GET /api/v1/pipelines', type: :request do
-  path '/api/v1/pipelines' do
-    get 'Retrieves all pipelines by user_id and merchant_id' do
-      tags 'Pipelines'
+describe 'GET /api/v1/partners', type: :request do
+  path '/api/v1/partners' do
+    get 'Retrieves all partners by user_id and merchant_id' do
+      tags 'partners'
       produces 'application/json'
       consumes 'application/json'
 
@@ -16,14 +16,14 @@ describe 'GET /api/v1/pipelines', type: :request do
 
       let(:current_user) { create(:internal_user) }
       let!(:merchant_user) { create(:merchant_user) }
-      let!(:pipeline) { create(:pipeline) }
-      let!(:contracting_pipeline) { create(:pipeline, stage: Pipeline.stages[:contracting]) }
+      let!(:partner) { create(:partner) }
+      let!(:contracting_partner) { create(:partner, stage: Partner.stages[:contracting]) }
 
       let('access-token') { current_user.id }
       let(:user_id) { merchant_user.user_id }
       let(:merchant_id) { merchant_user.merchant_id }
 
-      response '200', 'Pipelines found' do
+      response '200', 'Partners found' do
         schema type: :object, properties: {
           data: {
             type: :array,
@@ -54,7 +54,7 @@ describe 'GET /api/v1/pipelines', type: :request do
       context 'when current_user is merchant_user' do
         let(:current_user) { merchant_user.external_user }
 
-        response '200', 'Pipelines found' do
+        response '200', 'Partners found' do
           run_test! do |response|
             expect(response.parsed_body['data'].size).to eq(1)
           end
@@ -62,9 +62,9 @@ describe 'GET /api/v1/pipelines', type: :request do
       end
 
       context 'when active filter is present' do
-        let!(:active_pipeline) { create(:active_pipeline, merchant: merchant_user.merchant) }
+        let!(:pipeline) { create(:pipeline, merchant: merchant_user.merchant) }
 
-        response '200', 'Active pipelines found' do
+        response '200', 'Active partners found' do
           let(:active) { true }
 
           run_test! do |response|
