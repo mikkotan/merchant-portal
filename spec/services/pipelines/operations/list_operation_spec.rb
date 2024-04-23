@@ -34,7 +34,7 @@ RSpec.describe Partners::Operations::ListOperation do
       let(:active) { true }
 
       context 'when active partners exists for merchant' do
-        let!(:active_pipeline) { create(:pipeline, merchant:) }
+        let!(:active_pipeline) { create(:pipeline, merchant:, status: Pipeline.statuses[:active]) }
 
         it 'returns success with list of active pipelines' do
           expect(subject).to be_success

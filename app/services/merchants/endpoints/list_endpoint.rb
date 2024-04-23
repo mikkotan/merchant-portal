@@ -6,18 +6,13 @@ module Merchants
       private
 
       def process
-        merchants = yield list_merchants.call(query_params)
+        merchants = yield list_merchants.call(params)
 
         Success({ data: present(merchants) })
       end
 
-      def validate_params
-        res = Try[ActionController::ParameterMissing] do
-          params.require(:user_id)
-          params.permit(:user_id)
-        end
-
-        res.error? ? Failure(:invalid_params) : res
+      def contract
+        @contract ||= Merchants::Contracts::ListContract.new
       end
 
       def guard
@@ -25,7 +20,7 @@ module Merchants
       end
 
       def user_id
-        @user_id ||= query_params.fetch(:user_id)
+        @user_id ||= params.fetch(:user_id)
       end
 
       def list_merchants

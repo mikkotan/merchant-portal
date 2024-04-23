@@ -11,13 +11,8 @@ module Partners
         Success({ data: present(partners) })
       end
 
-      def validate_params
-        res = Try[ActionController::ParameterMissing] do
-          params.require(%i[user_id merchant_id])
-          params.permit(:user_id, :merchant_id, :active)
-        end
-
-        res.error? ? Failure(:invalid_params) : res
+      def contract
+        @contract ||= Partners::Contracts::ListContract.new
       end
 
       def guard
@@ -25,11 +20,11 @@ module Partners
       end
 
       def user_id
-        @user_id ||= query_params.fetch(:user_id)
+        @user_id ||= params.fetch(:user_id)
       end
 
       def merchant_id
-        @merchant_id ||= query_params.fetch(:merchant_id)
+        @merchant_id ||= params.fetch(:merchant_id)
       end
 
       def list_partners
@@ -37,7 +32,7 @@ module Partners
       end
 
       def list_params
-        query_params.merge(stage_params)
+        params.merge(stage_params)
       end
 
       def stage_params

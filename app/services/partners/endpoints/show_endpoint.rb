@@ -11,6 +11,10 @@ module Partners
         Success({ data: present(partner) })
       end
 
+      def contract
+        @contract ||= Partners::Contracts::ShowContract.new
+      end
+
       def guard
         @guard ||= Partners::Guards::ShowGuard.new(current_user, merchant_id:)
       end

@@ -62,7 +62,7 @@ describe 'GET /api/v1/partners', type: :request do
       end
 
       context 'when active filter is present' do
-        let!(:pipeline) { create(:pipeline, merchant: merchant_user.merchant) }
+        let!(:pipeline) { create(:pipeline, merchant: merchant_user.merchant, status: Pipeline.statuses[:active]) }
 
         response '200', 'Active partners found' do
           let(:active) { true }

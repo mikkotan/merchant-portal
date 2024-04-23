@@ -6,6 +6,7 @@ ruby '3.2.2'
 
 gem 'bootsnap', require: false
 gem 'dry-monads'
+gem 'dry-validation'
 gem 'jbuilder'
 gem 'jsbundling-rails'
 gem 'pg', '~> 1.1'

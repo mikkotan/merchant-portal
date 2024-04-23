@@ -7,7 +7,7 @@ class BaseEndpointService < BaseService
   end
 
   def call
-    @query_params = yield validate_params if validate_params
+    @params = yield apply_contract if contract.present?
 
     yield authenticate_request
     yield guard.call if guard.present?
@@ -17,18 +17,14 @@ class BaseEndpointService < BaseService
 
   private
 
-  attr_reader :request, :current_user, :query_params
+  attr_reader :request, :current_user, :params
 
   def process
     raise NotImplementedError
   end
 
-  def validate_params
-    nil
-  end
-
-  def params
-    @params ||= ActionController::Parameters.new(request.params).deep_transform_keys(&:underscore)
+  def dirty_params
+    @dirty_params ||= ActionController::Parameters.new(request.params).deep_transform_keys(&:underscore)
   end
 
   def headers
@@ -45,5 +41,19 @@ class BaseEndpointService < BaseService
 
   def guard
     nil
+  end
+
+  def contract
+    nil
+  end
+
+  def apply_contract
+    result = contract.call(dirty_params.to_unsafe_h)
+
+    if result.success?
+      Success(result.to_h)
+    else
+      Failure(:invalid_params)
+    end
   end
 end
