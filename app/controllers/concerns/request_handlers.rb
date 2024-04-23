@@ -7,6 +7,7 @@ module RequestHandlers
   FORBIDDEN_MSG = 'Forbidden request.'
   INVALID_PARAMS_MSG = 'Invalid parameters.'
   NOT_FOUND_MSG = 'Resource not found.'
+  UNPROCESSABLE_ENTITY_MSG = 'Unprocessable entity.'
 
   private
 
@@ -22,6 +23,8 @@ module RequestHandlers
       handle_forbidden_request
     in Failure(:not_found)
       handle_not_found
+    in Failure[:unprocessable_entity, errors]
+      handle_unprocessable_entity(errors)
     else
       handle_bad_request
     end
@@ -49,6 +52,10 @@ module RequestHandlers
 
   def handle_not_found
     render_error(NOT_FOUND_MSG, :not_found)
+  end
+
+  def handle_unprocessable_entity(errors = nil)
+    render_error(errors, :unprocessable_entity)
   end
 
   def render_error(payload, status = :bad_request)

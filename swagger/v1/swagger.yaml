@@ -220,6 +220,199 @@ paths:
                 properties:
                   error:
                     type: string
+  "/api/v1/pipelines/{id}/activate":
+    post:
+      summary: Activates a pipeline
+      tags:
+      - Pipelines
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Pipeline activated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      merchant_id:
+                        type: string
+                        format: uuid
+                      financial_institution_id:
+                        type: string
+                        format: uuid
+                      partner:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                          about:
+                            type: string
+                          founded_in:
+                            type: string
+                          stage:
+                            type: string
+                          categories:
+                            type: array
+                            items:
+                              type: string
+                          company_website:
+                            type: string
+                        required:
+                        - id
+                        - name
+                        - about
+                        - founded_in
+                        - stage
+                        - categories
+                        - company_website
+                    required:
+                    - id
+                    - merchant_id
+                    - financial_institution_id
+                    - partner
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: Pipeline not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  "/api/v1/pipelines":
+    post:
+      summary: Creates a pipeline
+      tags:
+      - Pipelines
+      parameters:
+      - name: access-token
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Pipeline created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                      merchant_id:
+                        type: string
+                        format: uuid
+                      financial_institution_id:
+                        type: string
+                        format: uuid
+                      partner:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                          name:
+                            type: string
+                          about:
+                            type: string
+                          founded_in:
+                            type: string
+                          stage:
+                            type: string
+                          categories:
+                            type: array
+                            items:
+                              type: string
+                          company_website:
+                            type: string
+                        required:
+                        - id
+                        - name
+                        - about
+                        - founded_in
+                        - stage
+                        - categories
+                        - company_website
+                    required:
+                    - id
+                    - merchant_id
+                    - financial_institution_id
+                    - partner
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '400':
+          description: Invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                merchant_id:
+                  type: string
+                  format: uuid
+                financial_institution_id:
+                  type: string
+                  format: uuid
+              required:
+              - merchant_id
+              - financial_institution_id
 servers:
 - url: http://localhost:3000
   variables:
